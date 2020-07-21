@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Form from "./Form/Form"
+import Dashboard from "./Dashboard"
 import * as serviceWorker from './serviceWorker';
+import { Route, BrowserRouter, Switch, Redirect} from 'react-router-dom'
+import ProtectedRoute from "./ProtectedRoute";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/auth" component={Form} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <Redirect from="/" to={{pathname: '/login'}}/>
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

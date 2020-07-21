@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from "react"
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -16,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '40px',
     padding: '40px',
     minHeight: '200px',
-    '&  div': {
-      marginBottom: '5px'
-    },
     TextField: {
       width: "100%"
     },
@@ -44,6 +40,7 @@ const Form = () => {
   const { register, handleSubmit, errors } = useForm();
   const [isLoading, setLoader] = useState(false);
   const [user, setUser] = useState('');
+  const [stateForm, setStateForm] = useState('register');
 
 
   const onSubmit = data =>  {
@@ -77,41 +74,8 @@ const Form = () => {
       {isLoading ?     
       <Grid container alignItems="center" justify="center" style={{ height: "100%"}}>
           <CircularProgress  />
-      </Grid> : 
-      <>
-     <Typography variant="h4" gutterBottom>Formulario de Registro</Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          error={errors.name}
-          inputRef={register({ required: true })}
-          name="name" label="Nombre" 
-          helperText={errors.name && 'El nombre es requerido'} 
-          fullWidth/>
-        <br></br>
-          <TextField 
-          error={errors.email}
-          inputRef={register({ required: true, pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/})} 
-          name="email" 
-          label="Email"
-          helperText={errors.email && 'El email es incorrecto'} 
-          fullWidth/>
-        <br></br>
-          <TextField 
-           error={errors.password}
-            inputRef={register({ required: true})} 
-            name="password" 
-            type="password" 
-            label="Contraseña" 
-            helperText={errors.password && 'La contraseña es requerida'} 
-            fullWidth/>
+      </Grid> : stateForm=="register" ? <RegisterForm  changeState={setStateForm} handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} errors={errors}/> : <LoginForm changeState={setStateForm} handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} errors={errors}/>
 
-        <br></br>
-        <Button fullWidth type="submit" variant="contained" color="primary">
-          Enviar
-        </Button>
-
-      </form> 
-      </>
     
     }
   
