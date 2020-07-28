@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Form from "./Form/Form"
-import Dashboard from "./Dashboard"
+import Form from "./UI/Form/Form"
+import Dashboard from "./UI/Dashboard/Dashboard"
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter, Switch, Redirect} from 'react-router-dom'
 import ProtectedRoute from "./ProtectedRoute";
@@ -12,8 +12,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route path="/auth" component={Form} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
-        <Redirect from="/" to={{pathname: '/login'}}/>
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

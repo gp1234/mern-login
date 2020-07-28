@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 export default function RegisterForm({handleSubmit,onSubmit,register,errors,changeState}) {
     return (
         <div>
-            <Typography variant="h4" gutterBottom>Login</Typography>
+            <Typography variant="h4" gutterBottom>Formulario de Login</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box mb={1} mt={1} >
                     <TextField 
